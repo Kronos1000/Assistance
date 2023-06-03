@@ -1,10 +1,10 @@
 import { Box, Button, Center, Flex, Heading, Spinner, Text } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
-import { CenterPanel } from './CenterPanel';
-import { DashboardCenter } from './DashboardCenter';
 
-import { DashboardContent } from './DashboardContent';
-import { LeftPanel } from './LeftPanel';
+import { DashboardLeft } from './DashboardLeft';
+import { DashboardRight } from './DashboardRight';
+import { DashboardCenter} from './DashboardCenter';
+
 
 export const Dashboard = () => {
 
@@ -18,11 +18,11 @@ export const Dashboard = () => {
   
 
   return (
-    <Flex w={'100%'}>
+    <Flex >
     
-     <DashboardContent />
-    <DashboardCenter />
-
+     <DashboardLeft />
+      <DashboardCenter />
+      <DashboardRight />
 
     
 

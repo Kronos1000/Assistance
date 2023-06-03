@@ -1,21 +1,26 @@
 import React, { useEffect, useState } from 'react';
-import { Box, Button, Center, Flex, Heading } from '@chakra-ui/react';
+import {
+  Box,
+  Button,
+  Center,
+  Flex,
+  Heading,
+  Text,
+  Textarea
+} from '@chakra-ui/react';
 
-export const DashboardCenter = () => {
+export const DashboardCenter= () => {
   const [selectedVendor, setSelectedVendor] = useState(1);
+  const [vendors, setVendors] = useState([]);
   const [foods, setFoods] = useState([]);
-  const[foodID,setFoodID] = useState('0');
   const [newFoodName, setNewFoodName] = useState('');
   const [newFoodType, setNewFoodType] = useState('');
   const [newFoodDesc, setNewFoodDesc] = useState('');
-  const [vendor, setVendor] = useState([]);
+  const [newVendorID, setNewVendorID] = useState('');
+  const [newFoodID, setNewFoodID] = useState('');
 
   function handleButtonClick(vendorID) {
     setSelectedVendor(vendorID);
-    fetch(`${process.env.REACT_APP_BACKEND_URL}/foods`)
-      .then(res => res.json())
-      .then(body => setFoods(body))
-      .catch(err => console.log(err));
   }
 
   function addData() {
@@ -38,10 +43,10 @@ export const DashboardCenter = () => {
   }
 
   useEffect(() => {
-    if (vendor.length === 0) {
+    if (vendors.length === 0) {
       fetch(`${process.env.REACT_APP_BACKEND_URL}/vendors`)
         .then(res => res.json())
-        .then(body => setVendor(body))
+        .then(body => setVendors(body))
         .catch(err => console.log(err));
     }
 
@@ -51,72 +56,112 @@ export const DashboardCenter = () => {
         .then(body => setFoods(body))
         .catch(err => console.log(err));
     }
-  }, [vendor, foods]);
+  }, []);
 
   function handleAddFood() {
-    if (!newFoodName || !newFoodType || !newFoodDesc || !selectedVendor) {
-      console.log('Please fill in all the required fields.');
-      return;
-    }
-  
     fetch(`${process.env.REACT_APP_BACKEND_URL}/foods`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        foodID: setFoodID,
+        // foodID: newFoodID,
         foodName: newFoodName,
         foodType: newFoodType,
-        foodDesc: newFoodDesc,
-        vendorID: setVendor,
+        FoodDescription: newFoodDesc,
+        vendorID: newVendorID,
       }),
     })
-      .then(res => {
-        if (res.ok) {
-          return res.json();
-        } else {
-          throw new Error('Failed to add food');
-        }
-      })
-     
+      .then(res => res.json())
       .then(body => {
         setFoods([...foods, body]);
-        console.log('Response Data:', body);
-        setFoodID('');
+        // log info to console
+        console.log(body);
+        // Reset the form fields after successful addition
         setNewFoodName('');
         setNewFoodType('');
         setNewFoodDesc('');
-        setVendor('');
+        setNewVendorID('');
+        setNewFoodID('');
       })
-     .catch(err => console.log(err));
+      .catch(err => console.log(err));
   }
-  
 
   return (
     <Flex>
-      <Box paddingLeft={100} paddingTop={100}>
-        <Heading> Add Food Item </Heading>
+      <Box paddingLeft={100}>
+        <Center>
+          <Heading> The magical emporium </Heading>
+        </Center>
+        <Center>
+          <Heading Size="lg">DashBoard</Heading>
+        </Center>
+
+        {/* <br />
+        <br /> */}
+
+        {/* <Heading size="md">Vendors</Heading>
+
+        {vendors.map(vendor => (
+          <Flex key={vendor.id} alignItems="center">
+            <Center>
+              <Text>Vendor Name: {vendor.name}</Text>
+              <br></br>
+              <Text> Vendor ID: {vendor.vendorID}</Text>
+            </Center>
+          </Flex>
+        ))} */}
+
+        <br />
+        <br />
+
+        <Heading>Food</Heading>
+
+        {foods.map(f => {
+          return (
+            <Flex key={f.foodID} alignItems="center">
+              <Center>
+                <Text>Food Name: {f.foodName} <br></br> Description: {f.foodDescription} <br></br>
+                <br></br></Text>
+                <br></br>
+            	<br></br>
+        
+                <Text>  </Text>
+                <br />
+                <br />
+                {/* <Button ml={4} colorScheme="yellow" size="sm">
+                  edit
+                </Button> */}
+                <Button
+                  ml={4}
+                  colorScheme="red"
+                  size="sm"
+                  onClick={() => handleDeleteFood(f.foodID)}
+                >
+                  Delete
+                </Button>
+              </Center>
+              <br />
+              <br />
+            </Flex>
+          );
+        })}
+      {/* </Box>
+      <Box paddingLeft={100} paddingTop={100} justifyContent={'center'}> */}
+        <br></br>
+        <br></br>
+        <Heading> Add New  Food Item </Heading>
         <Box marginTop={4} >
-        {/* <input
-            type="text"
-            placeholder="Food ID "
-            value={foodID}
-            onChange={e => setFoodID(e.target.value)}
-          /> */}
-          
-          
-          <br></br>
-          <br></br>
-          <input
+     
+     
+          <Textarea
             type="text"
             placeholder="Food Name"
             value={newFoodName}
             onChange={e => setNewFoodName(e.target.value)}
           />
-          <br></br>
-          <br></br>
-          <input
+        
+          <Textarea
             type="text"
             placeholder="Food Type"
             value={newFoodType}
@@ -124,7 +169,7 @@ export const DashboardCenter = () => {
           />
           <br></br>
           <br></br>
-          <input
+          <Textarea
             type="text"
             placeholder="Food Description"
             value={newFoodDesc}
@@ -132,11 +177,11 @@ export const DashboardCenter = () => {
           />
           <br></br>
           <br></br>
-          <input
+          <Textarea
             type="text"
             placeholder="Vendor ID"
-            value={selectedVendor}
-            onChange={e => setSelectedVendor(e.target.value)}
+            value={newVendorID}
+            onChange={e => setNewVendorID(e.target.value)}
           />
           <br></br>
           <br></br>
