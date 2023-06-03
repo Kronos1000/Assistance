@@ -4,7 +4,7 @@
 
 namespace Backend.Migrations
 {
-    public partial class _1 : Migration
+    public partial class intialMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -75,52 +75,6 @@ namespace Backend.Migrations
                         column: x => x.VehiclesvehicleID,
                         principalTable: "Vehicles",
                         principalColumn: "vehicleID");
-                });
-
-            migrationBuilder.InsertData(
-                table: "Food",
-                columns: new[] { "FoodID", "FoodDescription", "FoodName", "FoodType", "VendorID" },
-                values: new object[,]
-                {
-                    { 1, "Similique optio odit illum sint.", "frostly Flakes Flavoured Milk", "Breads", 2 },
-                    { 2, "Sit quidem unde.", "Big Mac", "Breads", 2 },
-                    { 3, "Temporibus eveniet sit explicabo.", "Chocolate Cake", "Breads", 1 },
-                    { 4, "Quod vel ipsam quia.", "frostly Flakes Flavoured Milk", "Burger", 1 },
-                    { 5, "Unde odit quia.", "Bacon Flavoured Icecream", "Snack", 2 },
-                    { 6, "Sequi sed expedita adipisci sed placeat et nesciunt nulla.", "Mac and Cheese Filled Doughnuts", "Beverage", 2 },
-                    { 7, "Mollitia cum ad et itaque.", "Cardboard Pizza", "Burger", 2 },
-                    { 8, "Nihil velit voluptas laudantium sunt velit.", "A Warm Apple pie", "Muffin", 2 },
-                    { 9, "Esse quos enim natus.", "Cardboard Pizza", "Snack", 2 }
-                });
-
-            migrationBuilder.InsertData(
-                table: "Furniture",
-                columns: new[] { "furnitureID", "VendorID", "furnitureDescription", "furnitureName", "furnitureType" },
-                values: new object[,]
-                {
-                    { 2511, 1, "Voluptatibus unde molestiae non ea possimus fugiat ut.", "Leather couch 3000", "Occasional Furniture" },
-                    { 2804, 2, "Ut aut quis iure a impedit fugiat dolorum.", "Leather couch 3000", "Bed" },
-                    { 3198, 1, "Tempore quo quod adipisci unde.", "The Pull Out", "Couch" }
-                });
-
-            migrationBuilder.InsertData(
-                table: "Vehicles",
-                columns: new[] { "vehicleID", "VendorID", "vehicleDescription", "vehicleName", "vehicleType" },
-                values: new object[,]
-                {
-                    { 59003, 2, "Alias eius quam est cupiditate eos expedita ipsum cum error. Sit impedit saepe similique ut et. Incidunt ipsam perspiciatis rerum aliquid sequi eveniet doloremque. Minus nihil nisi consequatur. Omnis nihil sapiente vel cupiditate facilis dignissimos numquam deserunt dolorem.", "Nissan Cefiro", "Shitbox" },
-                    { 64406, 1, "Tempore accusantium fugit. Est soluta rerum sapiente sint laudantium voluptatem ut. Consequatur minima quod sequi commodi quos magnam at voluptatum earum. Consequatur beatae dignissimos quas.", "Honda Civic", "StationWagon" },
-                    { 77085, 2, "Perferendis magnam fugiat quia aliquid maxime odit asperiores accusantium nostrum. Facere sapiente quaerat sunt unde corrupti veritatis. Sapiente debitis qui. Quibusdam et harum omnis eaque. Aperiam exercitationem est. Qui omnis suscipit unde.", "Honda Civic", "Shitbox" },
-                    { 78582, 2, "Consequatur quo facere quidem provident. Nulla consequuntur voluptatum. Tenetur ut et excepturi dignissimos corporis officiis. Repellat autem eligendi nihil sint vero eum ad.", "Holden Crewman  S", "Shitbox" }
-                });
-
-            migrationBuilder.InsertData(
-                table: "Vendor",
-                columns: new[] { "VendorID", "Description", "Location", "Name", "VehiclesvehicleID" },
-                values: new object[,]
-                {
-                    { 1, "Animi velit at voluptatum expedita nisi itaque et ducimus nulla.", "92145 Devonte Rapids", "Procrastination Solutions", null },
-                    { 2, "Neque quia sit.", "932 Clark Summit", "Efficiency Experts Inc. (Don't Hold Your Breath)", null }
                 });
 
             migrationBuilder.CreateIndex(

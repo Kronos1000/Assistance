@@ -5,6 +5,7 @@ import * as serviceWorker from './serviceWorker';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { Root } from './root/Root';
 import { Home } from './home/Home';
+import { Dashboard} from './home/Dashboard';
 import { ChakraProvider } from '@chakra-ui/react';
 
 const container = document.getElementById('root');
@@ -18,6 +19,10 @@ const router = createBrowserRouter([
       {
         path: '',
         element: <Home />,
+      },
+      {
+        path: 'dashboard',
+        element: <Dashboard />,
       },
     ],
   },

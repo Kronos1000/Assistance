@@ -1,4 +1,5 @@
-﻿namespace Backend.Models
+﻿using System.ComponentModel.DataAnnotations;
+namespace Backend.Models
 {
     public class Vendor
     {

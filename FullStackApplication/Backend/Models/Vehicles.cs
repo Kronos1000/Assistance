@@ -9,7 +9,7 @@ namespace Backend.Models
         public string vehicleName { get; set; }
         public string vehicleType { get; set; }
         public string vehicleDescription { get; set; }
-        public int VendorID {get;set;}
+        public int VendorID { get; set; }
         public List<Vendor>? Vendors { get; set; }
     }
 }

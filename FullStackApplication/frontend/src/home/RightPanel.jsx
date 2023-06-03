@@ -2,47 +2,43 @@ import React from 'react'
 import { Box, Button, Center, Flex, Heading, Spinner, Text } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 
-export const LeftPanel = () => {
+export const RightPanel = () => {
     const [selectedVendor, setSelectedVendor] = useState(1);
     const [vendor, setVendor] = useState([]);
-    const [foods, setFoods] = useState([]);
-    const [newFoodName, setNewFoodName] = useState('');
-    const [newFoodType, setNewFoodType] = useState('');
-    const[newFoodDesc, setNewFoodDesc] = useState('');
-    const[newVendorID,setNewVendorID] = useState('');
-    const[newFoodID,setNewFoodID] = useState('');
+    const [vehicles, setvehicles] = useState([]);
+
     function handleButtonClick(vendorID) {
         setSelectedVendor(vendorID);
-        fetch(`${process.env.REACT_APP_BACKEND_URL}/foods`)
+        fetch(`${process.env.REACT_APP_BACKEND_URL}/vehicles`)
             .then(res => res.json())
-            .then(body => setFoods(body))
+            .then(body => setvehicles(body))
             .catch(err => console.log(err));
     }
 function addData(){ 
-    window.location.href = "./addfoods.html";
+    window.location.href = "./addvehicles.html";
 }
-    function handleDeleteFood(foodID) {
-        fetch(`${process.env.REACT_APP_BACKEND_URL}/foods/${foodID}`, {
+    function handleDeleteFurniture(vehicleID) {
+        fetch(`${process.env.REACT_APP_BACKEND_URL}/vehicles${vehicleID}`, {
             method: 'DELETE'
         })
             .then(res => {
                 if (res.ok) {
-                    setFoods(foods.filter(f => f.foodID !== foodID));
+                    setvehicles(vehicles.filter(f => f.vehicleID !== vehicleID));
                 } else {
-                    console.log('Failed to delete food');
+                    console.log('Failed to delete Furniture');
                 }
             })
             .catch(err => console.log(err));
     }
     
-    function handleAddFood(event) {
+    function handleAddFurniture(event) {
         event.preventDefault(); // Prevent form submission
       
         const form = document.getElementById('myForm');
         const formData = new FormData(form);
         const formDataObject = Object.fromEntries(formData.entries());
       
-        fetch(`${process.env.REACT_APP_BACKEND_URL}/foods`, {
+        fetch(`${process.env.REACT_APP_BACKEND_URL}/vehicles`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -69,35 +65,36 @@ function addData(){
                 .catch(err => console.log(err));
         }
 
-        if (foods.length === 0) {
-            fetch(`${process.env.REACT_APP_BACKEND_URL}/foods`)
+        if (vehicles.length === 0) {
+            fetch(`${process.env.REACT_APP_BACKEND_URL}/vehicles`)
                 .then(res => res.json())
-                .then(body => setFoods(body))
+                .then(body => setvehicles(body))
                 .catch(err => console.log(err));
         }
     }, []);
 
     return (
         <Flex>
-            <Box paddingLeft={100} >
-             
-                <br />
-                <br />
-                <br />
-                <br />
-                <br />
-                <Heading size={'md'}> Food  </Heading>
+            <Box >
+     
+         
+<br/>      
+<br/>              
+<br/>   
+<br/>   
+           
+                <Heading size={'md'}> Vehicles </Heading>
 
-                {foods.map(f => {
+                {vehicles.map(f => {
                     if (f.vendorID === selectedVendor) {
                         return (
-                            <Flex key={f.foodID} alignItems="center">
-                                <Text>Food Name: {f.foodName}</Text>
+                            <Flex key={f.vehicleID} alignItems="center">
+                                <Text>Vehicle Model: {f.vehicleName}</Text>
                                 {/* <Button
                                     ml={4}
                                     colorScheme="red"
                                     size="sm"
-                                    onClick={() => handleDeleteFood(f.foodID)}
+                                    onClick={() => handleDeleteFurniture(f.vehicleID)}
                                 >
                                     Delete
                                 </Button> */}
